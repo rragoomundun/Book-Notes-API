@@ -1,2 +1,3 @@
-# book-notes
-A website with book notes
+# Book Notes API
+
+API for the Book Notes application
