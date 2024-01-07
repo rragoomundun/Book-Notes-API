@@ -14,6 +14,17 @@ if (ENV === 'dev') {
   app.use(morgan('dev'));
 }
 
+// Set static folder
+app.use(express.static('public'));
+
+const apiPrefix = '/v1';
+
+// Route files
+import bookRoute from './routes/book.route.js';
+
+// Mount routers
+app.use(`${apiPrefix}/book`, bookRoute);
+
 app.listen(PORT, () => {
   console.log(`Server is running in ${ENV} mode on port ${PORT}`);
 });

@@ -1,0 +1,14 @@
+{
+  "name": "Book Notes API (1.0.0)",
+  "version": "1.0.0",
+  "description": "API for the Book Notes application",
+  "title": "Book Notes API (1.0.0)",
+  "url": "http://localhost:5000/v1",
+  "sampleUrl": "http://localhost:5000/v1",
+  "order": ["BookGetAll", "BookGet"],
+  "template": {
+    "forceLanguage": "en",
+    "withCompare": false,
+    "withGenerator": false
+  }
+}
