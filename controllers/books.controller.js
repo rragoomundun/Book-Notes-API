@@ -3,7 +3,7 @@ import httpStatus from 'http-status-codes';
 import dbUtil from '../utils/db.util.js';
 
 /**
- * @api {GET} /book/all Get all books
+ * @api {GET} /books/all Get all books
  * @apiGroup Book
  * @apiName BookGetAll
  *
@@ -75,7 +75,7 @@ const getAllBooks = async (req, res) => {
 };
 
 /**
- * @api {GET} /book/:id Get a book
+ * @api {GET} /books/:id Get a book
  * @apiGroup Book
  * @apiName BookGet
  *
