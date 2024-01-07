@@ -20,10 +20,12 @@ app.use(express.static('public'));
 const apiPrefix = '/v1';
 
 // Route files
-import bookRoute from './routes/book.route.js';
+import booksRoute from './routes/books.route.js';
+import pagesRoute from './routes/pages.route.js';
 
 // Mount routers
-app.use(`${apiPrefix}/book`, bookRoute);
+app.use(`${apiPrefix}/books`, booksRoute);
+app.use(`${apiPrefix}/pages`, pagesRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running in ${ENV} mode on port ${PORT}`);
