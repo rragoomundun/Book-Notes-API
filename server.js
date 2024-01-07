@@ -14,6 +14,9 @@ if (ENV === 'dev') {
   app.use(morgan('dev'));
 }
 
+// Set static folder
+app.use(express.static('public'));
+
 const apiPrefix = '/v1';
 
 // Route files
