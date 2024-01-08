@@ -141,7 +141,7 @@ const getBook = async (req, res) => {
  *    "isbn": "978-0857197689",
  *    "title": "The Psychology of Money: Timeless lessons on wealth, greed, and happiness",
  *    "notes": "Doing well with money isn’t necessarily about what you know. It’s about how you behave. And behavior is hard to teach, even to really smart people.",
- *    "author": " Morgan Housel",
+ *    "author": "Morgan Housel",
  *    "date": "2020-09-08",
  *    "rating": 9
  * }
