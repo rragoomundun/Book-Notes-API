@@ -162,10 +162,68 @@ const addBook = async (req, res) => {
       [isbn, title, notes, author, date, rating]
     );
 
-    res.status(httpStatus.OK).json(result.rows[0]);
+    res.status(httpStatus.CREATED).json(result.rows[0]);
   } catch {
     res.status(httpStatus.BAD_REQUEST).json({ msg: 'Cannot add book' });
   }
 };
 
-export { getAllBooks, getBook, addBook };
+/**
+ * @api {PUT} /books/update/:id Update a book
+ * @apiGroup Book
+ * @apiName BookUpdate
+ *
+ * @apiParam {Number} id The book id
+ *
+ * @apiBody {String} isbn The book isbn
+ * @apiBody {String} title The book title
+ * @apiBody {String} notes The book notes
+ * @apiBody {String} author The book author
+ * @apiBody {String} date The book release date
+ * @apiBody {Number} rating The book rating
+ *
+ * @apiSuccess (Success (200)) {Number} id The book id
+ * @apiSuccess (Success (200)) {String} isbn The book isbn
+ * @apiSuccess (Success (200)) {String} title The book title
+ * @apiSuccess (Success (200)) {String} notes The book notes
+ * @apiSuccess (Success (200)) {String} author The book author
+ * @apiSuccess (Success (200)) {Date} date The book published date
+ * @apiSUccess (Success (200)) {Number} rating The book rating
+ *
+ * @apiSuccessExample {json} Success-Response
+ * {
+ *    "id": 14,
+ *    "isbn": "978-0857197689",
+ *    "title": "The Psychology of Money",
+ *    "notes": "Doing well with money isn’t necessarily about what you know. It’s about how you behave. And behavior is hard to teach, even to really smart people.",
+ *    "author": "Morgan Housel",
+ *    "date": "2020-09-08",
+ *    "rating": 10
+ * }
+ *
+ * @apiError (Error (400)) BAD_REQUEST Cannot update book
+ *
+ * @apiPermission Private
+ */
+
+const updateBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { isbn, title, notes, author, date, rating } = req.body;
+    const result = await dbUtil().query(
+      `
+      UPDATE book
+      SET isbn = $1, title = $2, notes = $3, author = $4, date = $5, rating = $6
+      WHERE id = $7
+      RETURNING *
+    `,
+      [isbn, title, notes, author, date, rating, id]
+    );
+
+    res.status(httpStatus.OK).json(result.rows[0]);
+  } catch {
+    res.status(httpStatus.BAD_REQUEST).json({ msg: 'Cannot update book' });
+  }
+};
+
+export { getAllBooks, getBook, addBook, updateBook };
