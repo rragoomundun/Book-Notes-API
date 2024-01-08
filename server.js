@@ -10,6 +10,8 @@ const app = express();
 const PORT = process.env.PORT;
 const ENV = process.env.NODE_ENV;
 
+app.use(express.json());
+
 if (ENV === 'dev') {
   app.use(morgan('dev'));
 }
