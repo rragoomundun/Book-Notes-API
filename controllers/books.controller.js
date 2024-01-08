@@ -115,4 +115,57 @@ const getBook = async (req, res) => {
   }
 };
 
-export { getAllBooks, getBook };
+/**
+ * @api {POST} /books/add Add a book
+ * @apiGroup Book
+ * @apiName BookAdd
+ *
+ * @apiBody {String} isbn The book isbn
+ * @apiBody {String} title The book title
+ * @apiBody {String} notes The book notes
+ * @apiBody {String} author The book author
+ * @apiBody {String} date The book release date
+ * @apiBody {Number} rating The book rating
+ *
+ * @apiSuccess (Success (200)) {Number} id The book id
+ * @apiSuccess (Success (200)) {String} isbn The book isbn
+ * @apiSuccess (Success (200)) {String} title The book title
+ * @apiSuccess (Success (200)) {String} notes The book notes
+ * @apiSuccess (Success (200)) {String} author The book author
+ * @apiSuccess (Success (200)) {Date} date The book published date
+ * @apiSUccess (Success (200)) {Number} rating The book rating
+ *
+ * @apiSuccessExample {json} Success-Response
+ * {
+ *    "id": 14,
+ *    "isbn": "978-0857197689",
+ *    "title": "The Psychology of Money: Timeless lessons on wealth, greed, and happiness",
+ *    "notes": "Doing well with money isn’t necessarily about what you know. It’s about how you behave. And behavior is hard to teach, even to really smart people.",
+ *    "author": " Morgan Housel",
+ *    "date": "2020-09-08",
+ *    "rating": 9
+ * }
+ *
+ * @apiError (Error (400)) BAD_REQUEST Cannot add book
+ *
+ * @apiPermission Private
+ */
+const addBook = async (req, res) => {
+  try {
+    const { isbn, title, notes, author, date, rating } = req.body;
+    const result = await dbUtil().query(
+      `
+      INSERT INTO book(isbn, title, notes, author, date, rating)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING *
+    `,
+      [isbn, title, notes, author, date, rating]
+    );
+
+    res.status(httpStatus.OK).json(result.rows[0]);
+  } catch {
+    res.status(httpStatus.BAD_REQUEST).json({ msg: 'Cannot add book' });
+  }
+};
+
+export { getAllBooks, getBook, addBook };
