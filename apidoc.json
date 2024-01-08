@@ -5,7 +5,7 @@
   "title": "Book Notes API (1.0.0)",
   "url": "http://localhost:5000/v1",
   "sampleUrl": "http://localhost:5000/v1",
-  "order": ["BookGetAll", "BookGet", "BookAdd", "PagesGetNb"],
+  "order": ["BookGetAll", "BookGet", "BookAdd", "BookUpdate", "PagesGetNb"],
   "template": {
     "forceLanguage": "en",
     "withCompare": false,
