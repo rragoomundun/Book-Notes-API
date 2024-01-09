@@ -169,7 +169,7 @@ const addBook = async (req, res) => {
 };
 
 /**
- * @api {PUT} /books/update/:id Update a book
+ * @api {PUT} /books/:id/update Update a book
  * @apiGroup Book
  * @apiName BookUpdate
  *
@@ -188,7 +188,7 @@ const addBook = async (req, res) => {
  * @apiSuccess (Success (200)) {String} notes The book notes
  * @apiSuccess (Success (200)) {String} author The book author
  * @apiSuccess (Success (200)) {Date} date The book published date
- * @apiSUccess (Success (200)) {Number} rating The book rating
+ * @apiSuccess (Success (200)) {Number} rating The book rating
  *
  * @apiSuccessExample {json} Success-Response
  * {
@@ -205,7 +205,6 @@ const addBook = async (req, res) => {
  *
  * @apiPermission Private
  */
-
 const updateBook = async (req, res) => {
   try {
     const { id } = req.params;
@@ -226,4 +225,40 @@ const updateBook = async (req, res) => {
   }
 };
 
-export { getAllBooks, getBook, addBook, updateBook };
+/**
+ * @api {DELETE} /books/:id/delete Delete a book
+ * @apiGroup Book
+ * @apiName BookDelete
+ *
+ * @apiParam {Number} id The book id
+ *
+ * @apiSuccess (Sucess (200)) {String} msg The success message
+ *
+ * @apiSuccessExample {json} Success-Response
+ * {
+ *    "msg": "Book successfully deleted"
+ * }
+ *
+ * @apiError (Error (400)) BAD_REQUEST Cannot delete book
+ *
+ * @apiPermission Private
+ */
+const deleteBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await dbUtil().query(
+      `
+      DELETE FROM book
+      WHERE id = $1
+    `,
+      [id]
+    );
+
+    res.status(httpStatus.OK).json({ msg: 'Book successfully deleted' });
+  } catch {
+    res.status(httpStatus.BAD_REQUEST).json({ msg: 'Cannot delete book' });
+  }
+};
+
+export { getAllBooks, getBook, addBook, updateBook, deleteBook };
