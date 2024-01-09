@@ -45,6 +45,8 @@ npm i
 
 The documentation files will be created in the **public** folder.
 
+---
+
 - Version: 1.0.0
 - License: MIT
 - Author: Raphaël Ragoomundun
