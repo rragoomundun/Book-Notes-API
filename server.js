@@ -10,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT;
 const ENV = process.env.NODE_ENV;
 
+// Body parser
 app.use(express.json());
 
 if (ENV === 'dev') {
